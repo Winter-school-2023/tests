@@ -23,7 +23,7 @@ const url = 'http://localhost:2368/ghost/';
       //Abrir la URL a probar en la página
       await page.goto(url);
       await new Promise(r => setTimeout(r, 7000));
-      await page.screenshot({path: './home-setup.png'})
+      await page.screenshot({path: './1home-setup.png'})
 
 
         //Click a 'Send' sin llenar el form
@@ -34,31 +34,30 @@ const url = 'http://localhost:2368/ghost/';
   
       let elems=0
       for(let i of feedback){elems++}
-      await page.screenshot({path:'./form-feedback.png'})
+      await page.screenshot({path:'./2form-feedback.png'})
       console.log(`Clicked "Register" with an empty form. Feedback is shown in ${elems} elements`)
   
       await page.type('input[id="blog-title"]', customFaker.company.name());
       await page.type('input[id="name"]', customFaker.person.fullName());
       await page.type('input[id="email"]', customFaker.internet.email());
-      await page.type('input[id="password"]', customFaker.internet.password({ length: 20 }));
-      await page.screenshot({path:'./form.png'})
+
+      var pass1 = customFaker.internet.password({ length: 10 })
+      var pass2 = customFaker.internet.password({ length: 8 })
+      
+      await page.type('input[id="password"]', pass2);
       await page.click('css=button')
   
       await new Promise(r => setTimeout(r, 7000));
       await page.screenshot({path:'./error-feedback.png'})
 
-	var pass = customFaker.internet.password({ length: 10 })
-console.log(pass)
-  
-
-await page.type('input[id="password"]', pass );
-       await page.click('css=button')
+      await page.type('input[id="password"]', pass1 );
+      await page.screenshot({path:'./correct-password.png'})
+      await page.click('css=button')
+      
       await new Promise(r => setTimeout(r, 7000));
-      await page.screenshot({path:'./success-feedback.png'})
-
-
-      feedback = await page.$('text="Hi Monitor!"');
-      await page.screenshot({path:'./after-login.png'})
+      console.log(pass1);
+      console.log(pass2);
+      await page.screenshot({path:'./logged-in.png'})
       console.log(`Logged in. Your user was ${feedback?'successfully':'not'} created`)
       //...
   
