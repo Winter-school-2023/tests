@@ -59,7 +59,7 @@ const url = 'http://localhost:2368/ghost/#/signin';
     await page.screenshot({path:'./clean-form.png'})                                                                                //!!!!!
 
     //tiempo de espera
-    await new Promise(r => setTimeout(r, 180000));
+    await new Promise(r => setTimeout(r, 7000));
 
    
     //completar el formulario con valores correctos
